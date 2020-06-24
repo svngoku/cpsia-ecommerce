@@ -1,0 +1,66 @@
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://taniarascia.github.io/primitive/css/main.css">
+<link rel="stylesheet" href="https://getbootstrap.com/docs/4.5/dist/css/bootstrap.min.css">
+
+<div id="app" class="container">
+    <h3>Computer's</h3>
+    <product>
+        <product-card></product-card>
+    </product>
+</div>
+
+<script>
+
+Vue.component('product-card', {
+    template: `
+    <div class="flex-row">
+        <div class="card flex-small" v-for="p,i in products" :key="i">
+            <img class="responsive-image" v-bind:src='p.img' style="width:100%">
+            <div class="text-center">
+                <span><b>{{ p.name }}</b></span>
+                <p> {{ p.inventory }} produit en stock</p>
+                <span class="darty_prix"> <b>Prix</b> : {{ p.unit_price }} € </span>
+            </div>
+        </div>
+    </div>    
+    `,
+    data() {
+        return {
+            products: [
+                {
+                    name: "DELL XPS 13",
+                    inventory: 5,
+                    unit_price: 1399,
+                    img: "https://www.topachat.com/boutique/img/in/in1011/in10118196/in1011819602@2x.jpg"
+                },
+                {
+                    name: "Windows Surface Laptop",
+                    inventory: 10,
+                    unit_price: 2499,
+                    img: "https://www.numerama.com/content/uploads/2017/05/microsoft-surface-laptop-10.jpg"
+                },
+                {
+                    name: "Mac Book Pro 13",
+                    inventory: 4,
+                    unit_price: 3000,
+                    img: "https://miro.medium.com/max/5184/1*HSKpzTab7yLCGzjWqKl6yQ.jpeg"
+                }
+            ]
+        };
+    }
+ });
+
+
+
+
+
+Vue.component('product', {
+    template: `<div><slot></slot></div>`
+});
+
+new Vue({
+    el: "#app"
+});
+
+</script>
