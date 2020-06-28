@@ -17,5 +17,6 @@ CREATE TABLE IF NOT EXISTS `produits` (
   `category_id` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `img_produit` BLOB,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB 

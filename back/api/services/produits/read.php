@@ -12,7 +12,7 @@ $database = new Database();
 $produit = new Produit();
 
 $produitsArr = $produit->read();
-$num = $produitsArr->rowCount();;
+$num = $produitsArr->rowCount();
   
 if($num > 0){
 
@@ -25,7 +25,7 @@ if($num > 0){
             "id" => $id,
             "titre" => $titre,
             "description" => html_entity_decode($description),
-            "prix" => $prix,
+            "prix" => number_format($prix, 2, ',', ' '),
             "created_at" => $created_at,
             "category_id" => $category_id,
             "category_name" => $category_name,

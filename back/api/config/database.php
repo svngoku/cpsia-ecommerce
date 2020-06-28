@@ -1,7 +1,7 @@
 <?php
 class Database{
-    protected $host = "localhost";
-    protected $db_name = "cpsiaEcommerce";
+    private $host = "localhost";
+    private $db_name = "cpsiaEcommerce";
     private $username = "root";
     private $password = "root";
     protected $conn;
@@ -43,20 +43,43 @@ class Database{
         }
     }
 
+    public function insert($table_name) {
+        $attributs = $this->getAttributs();
+        $champs = implode(",", $attributs);
+		$champsBind = array_map(function($elem){
+			return ":".$elem;
+        }, $attributs);
+        
+        $champsBind = implode(",", $champsBind);
+        // Envoie vers base de données
+		$req = "INSERT INTO ".$table_name." ($champs) VALUES ($champsBind) ";
+		$prep = $this->conn->prepare($req);
+		$tabVal = array();
+		foreach ($attributs as $key => $value) {
+			$tabVal[$value] = $this->$value;
+		}
+        $res = $prep->execute($tabVal);
+        return $res;
+    }
+
 
     public function getAll($sql,$datas=NULL){
         $prep = $this->requete($sql,$datas);
         return $prep->fetchAll();
     }
 
-    public function getOne($sql,$datas=NULL){
-        $prep = $this->requete($sql,$datas);
-        return  $prep->fetch();
+    public function getOne($id){
+        $obj = new self;
+		$class = get_called_class();
+
+		$req = "SELECT * FROM $class WHERE id = $id";
+		$res = $obj->pdo->query($req);
+		
+		$ligne = $res->fetch(PDO::FETCH_ASSOC);
+			
+		return $ligne;
       }
 
-    public function database_exec($sql,$datas=NULL){
-        return $this->requete($sql,$datas);
-    }
     
 }
 ?>

@@ -9,9 +9,9 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 include_once("../../config/database.php");
 include_once("../../class/Produit.php");
   
-// instantiate database and product class
+// instantiate database and product object
 $database = new Database();
-// initialize object
+// initialization de la classe produit
 $produit = new Produit();
 // recupérer les données POST
 $data = json_decode(file_get_contents("php://input"));

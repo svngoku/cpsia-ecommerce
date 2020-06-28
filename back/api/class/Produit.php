@@ -1,5 +1,4 @@
 <?php 
-
 class Produit extends Database {
     protected $conn;
     private $table_name= "produits";
@@ -32,33 +31,30 @@ class Produit extends Database {
     }
 
     public function create() { 
-        $attributs = $this->getAttributs();
-        $champs = implode(",", $attributs);
-		$champsBind = array_map(function($elem){
-			return ":".$elem;
-        }, $attributs);
-        
-        $champsBind = implode(",", $champsBind);
-		$req = "INSERT INTO ".$this->table_name." ($champs) VALUES ($champsBind) ";
-		$prep = $this->conn->prepare($req);
-       # strip_tags() tente de retourner la chaîne str après avoir supprimé tous les octets nuls, toutes les balises PHP et HTML du code
-		$tabVal = array();
-		foreach ($attributs as $key => $value) {
-			$tabVal[$value] = $this->$value;
-		}
-		// var_dump($tabVal);
-        $res = $prep->execute($tabVal);
+        $this->insert($this->table_name);
+        return true;
     }
 
-    function getProduitById($id)
-    {
-        $query = "SELECT * FROM " . $this->table_name . " 
-            WHERE id =:id 
-            ORDER BY titre ASC
+
+    public function find($id) {
+        $query = "
+            SELECT 
+                c.nom as category_name, p.id, p.titre, p.description, p.prix, p.category_id, p.created_at, p.img_produit 
+            FROM
+                ". $this->table_name ."  p
+                LEFT JOIN categories c 
+                    ON p.category_id = c.id
+            WHERE p.id = ".$id."
         ";
-        $datas = array(':id' => $id);         
-        $result = $this->getOne($query,$datas);
-        return $result;
+
+        try {
+            $query = $this->conn->query($query);
+            $ligne = $query->fetch(PDO::FETCH_ASSOC);
+            // var_dump($ligne);
+            return json_encode($ligne);
+        } catch (\PDOException $e) {
+            exit($e->getMessage());
+        }    
     }
 
     public function __destruct() {
