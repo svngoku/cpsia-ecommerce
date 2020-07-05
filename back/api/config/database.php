@@ -1,6 +1,6 @@
 <?php
 class Database{
-    private $host = "localhost";
+    public $host = "localhost";
     private $db_name = "cpsiaEcommerce";
     private $username = "root";
     private $password = "root";
@@ -42,6 +42,13 @@ class Database{
           exit();
         }
     }
+    
+    
+    public function getAll($sql,$datas=NULL){
+        $prep = $this->requete($sql,$datas);
+        return $prep->fetchAll();
+    }
+
 
     public function insert($table_name) {
         $attributs = $this->getAttributs();
@@ -62,22 +69,23 @@ class Database{
         return $res;
     }
 
-
-    public function getAll($sql,$datas=NULL){
-        $prep = $this->requete($sql,$datas);
-        return $prep->fetchAll();
+    public function delete($id) {
+        $class = get_called_class();
+        $query = "DELETE FROM ". $class ." WHERE id = ".$id;
+        $this->conn->query($query) === true ? true : false;
     }
 
     public function getOne($id){
-        $obj = new self;
 		$class = get_called_class();
 
-		$req = "SELECT * FROM $class WHERE id = $id";
-		$res = $obj->pdo->query($req);
-		
-		$ligne = $res->fetch(PDO::FETCH_ASSOC);
-			
-		return $ligne;
+		$query = "SELECT * FROM $class WHERE id = $id";
+		try {
+            $query = $this->conn->query($query);
+            $ligne = $query->fetch(PDO::FETCH_ASSOC);
+            return json_encode($ligne);
+        } catch (\PDOException $e) {
+            exit($e->getMessage());
+        }   
       }
 
     

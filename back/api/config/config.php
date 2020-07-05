@@ -11,3 +11,4 @@ $pdo = new PDO("mysql:host=" . PARAM_hote . "; dbname=" . PARAM_nom_bd, PARAM_ut
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
+ 
