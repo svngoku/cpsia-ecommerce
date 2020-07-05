@@ -5,11 +5,14 @@
       <div class="col-sm-6" v-for="(produit,i) in produits" :key="i">
       <br />
         <div class="card">
+          <p>{{ produit.category_name.toUpperCase() }}</p>
           <img class="responsive-image" v-bind:src='produit.img_produit' height="400" width="auto" />
           <div class="card-body">
-            <h5 class="card-title">{{ produit.titre }}</h5>
+            <router-link :to="{ name: 'produit', params: { id: produit.id}}" >
+              <h5 class="card-title">{{ produit.titre }}</h5>
+            </router-link>
             <p class="card-text">{{ produit.description }}</p>
-            <p class="card-text">Prix: {{ produit.prix  }} €</p>
+            <p class="card-text">Prix: {{ Number(produit.prix).toFixed(2)  }} €</p>
             <a href="#" class="btn btn-warning">🛒</a>
             <br />
             <br />
@@ -23,7 +26,8 @@
 
 
 <script>
-import axios from "axios"
+import axios from "axios";
+
 export default {
   props: ["produit"],
   data() {
@@ -33,15 +37,8 @@ export default {
   },
   async created(){
     await axios
-      .get('http://localhost:8000/api/services/produits/read.php')
-      .then(response => (this.produits = response.data.produits))
-  },
-  // methods: {
-  //   showByID: function(id) {
-  //     id = this.articles.id
-  //     axios.get(`http://localhost:8000/api/services/produits/read.php/${id}`).then(response => (this.produit = response.data))
-  //   }
-  // },
-  
+      .get('http://localhost:8000/api?cas=listeProduits')
+      .then(response => (this.produits = response.data))
+  }
 }
 </script>

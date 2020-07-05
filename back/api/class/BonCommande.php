@@ -14,7 +14,7 @@ class bon_commande {
     }
 
     public static function create() {
-        //
+        $bonCommande = new self;
     }
 
     public static function read() {

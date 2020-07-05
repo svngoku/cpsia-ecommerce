@@ -7,6 +7,7 @@ class clients {
     public $id;
     public $nom;
     public $prenom;
+    public $email;
     public $created_at;
 
     public function __construct()
@@ -14,12 +15,13 @@ class clients {
         $this->id= 0;
         $this->nom = "";
         $this->prenom = "";
+        $this->email = "";
     }
 
     public static function GetListe(){
         $p = new self;
         $q = "SELECT * FROM clients ORDER BY nom";
-        $champs = array("id","nom", "prenom");
+        $champs = array("id","nom", "prenom", "email");
         $res = $p->StructList($q,$champs,"json");
         return $res;
     }
@@ -34,7 +36,7 @@ class clients {
 
 
     public static function find($id) {
-        
+
     }
 
     public static function update($id) {

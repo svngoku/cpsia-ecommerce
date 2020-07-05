@@ -1,6 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import Categories from "../views/Categories.vue";
+import addProduit from "../views/Forms/Produit/AjoutProduit.vue";
 
 Vue.use(VueRouter);
 
@@ -21,8 +23,20 @@ const routes = [
   },
   {
     path: '/produit/:id', 
+    name: "produit",
     component: () => import('../views/Produit.vue')
-  }
+  },
+  {
+    path: "/add",
+    name: "ajoutProduit",
+    component: addProduit
+  },
+  {
+    path: "/categories",
+    name: "Categories",
+    component: Categories
+  },
+  
 ];
 
 const router = new VueRouter({
