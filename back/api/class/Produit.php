@@ -36,14 +36,6 @@ class produits {
         return $res;
     }
 
-
-    public static function create() { 
-        $produit = new self;
-        // $produit->titre = $_POST["titre"];
-        // $produit->description = $_POST["description"];
-    }
-
-
     public static function find($id) {
         $produit = new self;
         $query = "

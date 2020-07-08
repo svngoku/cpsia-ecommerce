@@ -20,3 +20,13 @@ CREATE TABLE IF NOT EXISTS `produits` (
   `img_produit` BLOB,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB 
+
+DROP TABLE IF EXISTS `bon_commande`;
+CREATE TABLE `bon_commande` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `created_at` datetime DEFAULT NULL,
+  `client_id` int(11) DEFAULT NULL,
+  `prix_total` decimal(10,0) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
