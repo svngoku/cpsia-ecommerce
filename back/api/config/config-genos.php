@@ -30,7 +30,10 @@
 	define("DATABASE_PSWD",$DATABASE_PSWD);
 
 	include(__DIR__."/genos.php");
+	include(__DIR__."/config-views.php");
+	include(__DIR__."/../class/global.class.php");
 	include(__DIR__."/../class/Client.php");
 	include(__DIR__."/../class/Produit.php");
 	include(__DIR__."/../class/Categorie.php");
 	include(__DIR__."/../class/BonCommande.php");
+	include(__DIR__."/../class/CommandeProduits.php");

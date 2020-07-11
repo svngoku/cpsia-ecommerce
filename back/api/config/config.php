@@ -1,14 +1,12 @@
 <?php 
+// header("Access-Control-Allow-Origin: *");
+// header("Content-Type: application/json; charset=UTF-8");
+// header("Access-Control-Allow-Methods: OPTIONS,GET,POST,PUT,DELETE");
+// header("Access-Control-Max-Age: 3600");
+// header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-define("URL_HOME", "http://localhost:9000/");
-define("PARAM_hote", "127.0.0.1");
-define("PARAM_port", "3306");
-define("PARAM_nom_bd", "cpsiaEcommerce");
-define("PARAM_utilisateur", "root");
-define("PARAM_mot_passe", "root");
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$uri = explode( '/', $uri );
+define("URL_HOME", "localhost:8000/");
 
-$pdo = new PDO("mysql:host=" . PARAM_hote . "; dbname=" . PARAM_nom_bd, PARAM_utilisateur, PARAM_mot_passe);
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-
- 
+    
